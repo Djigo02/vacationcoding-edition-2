@@ -1,11 +1,11 @@
 <?php 
- const TVA = 0.18;
- $prix = 2500;
- $quantite = 8;
- $nomClient = "Modou";
+const TVA = 0.18;
+$prix = 2500;
+$quantite = 8;
+$nomClient = "Modou";
 
  $mht = $prix * $quantite;
-  ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
