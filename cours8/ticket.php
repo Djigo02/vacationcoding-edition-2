@@ -1,10 +1,32 @@
 <?php
-  $PLAT = $_POST['prixPlat'];
-  $DESSERT = $_POST['prixDessert'];
-  $BOISSON = $_POST['prixBoisson'];
-  $nbplat = $_POST['nombrePlat'];
-  $nbdessert = $_POST['nombreDessert'];
-  $nbboisson = $_POST['nombreBoisson'];
+
+// pour verifier est ce qu'une variable a une valeur vide on utilise la fonction //! empty()
+// cette fonction retourne true dans le cas ou la variable est vide "" ou null et false dans le cas contraire
+
+  if(isset($_POST['btnSubmit']) && !empty($_POST['nombrePlat']) && !empty($_POST['nombreBoisson']) && !empty($_POST['nombreDessert'])){
+    $PLAT = $_POST['prixPlat'];
+    $DESSERT = $_POST['prixDessert'];
+    $BOISSON = $_POST['prixBoisson'];
+    $nbplat = $_POST['nombrePlat'];
+    $nbdessert = $_POST['nombreDessert'];
+    $nbboisson = $_POST['nombreBoisson'];
+    if(!empty($_POST['happyHours'])){
+      $reductionHappy = 200;
+    }
+    if(!empty($_POST['combo'])){
+      $reductionCombo = $nbplat > $nbboisson ? $nbboisson * 100 : $nbplat * 100;
+    }
+    if(!empty($_POST['chance'])){
+      $reductionChance = 1000;
+    }
+
+  
+  }else{
+  //   // si un des champs est vide on redirige
+
+    // la fonction qui permet de rediriger vers une page est //! header('location:chemin/vers/page.php')
+    header("location: cantine.php?error=");
+  }
 ?>
 
 <!doctype html>
@@ -45,9 +67,9 @@
       <!-- Réductions appliquées -->
       <div class="reductions">
         <strong>Réductions appliquées :</strong>
-        <p>Reduction Happy Hours : -</p>
-        <p>Reduction Code chance : -</p>
-        <p>Reduction combo : -</p>
+        <p>Reduction Happy Hours : - <?= !empty($reductionHappy) ? $reductionHappy : '0'   ?>F</p>
+        <p>Reduction Code chance : - <?= $reductionChance ?? '0' ?>F</p>
+        <p>Reduction combo : -<?= $reductionCombo ?? '0' ?>F</p>
       </div>
 
       <!-- Frais de service -->

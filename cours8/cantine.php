@@ -1,3 +1,10 @@
+<?php
+const PRIXPLAT = 5000;
+const PRIXDESSERT = 7000;
+const PRIXBOISSON = 4000;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +16,11 @@
 </head>
 
 <body>
-  <form action="ticket.php" method="post">
+  <?php if(isset($_GET['error'])):?>
+  <div class="alert alert-danger text-center h3 container my-5">Veuillez remplir tous les champs du formulaire</div>
+  <?php endif ?>
+
+  <form id="form" action="ticket.php" method="post">
     <div class="my-5 card col-6 offset-3">
       <div class="card-header text-center h1">Addition Client</div>
       <div class="card-body">
@@ -17,22 +28,22 @@
         <div class="row">
           <div class="col-4 offset-1">
             <div class="form-group mb-3">
-              <label class="form-label">PRIX PLAT</label>
-              <input name="prixPlat" type="number" class="form-control">
+              <label class="form-label">PRIX PLAT (FCFA)</label>
+              <input name="prixPlat" type="text" readonly value="<?= PRIXPLAT ?>" class="form-control">
             </div>
             <div class="form-group mb-3">
-              <label class="form-label">PRIX BOISSON</label>
-              <input name="prixBoisson" type="number" class="form-control">
+              <label class="form-label">PRIX BOISSON (FCFA)</label>
+              <input name="prixBoisson" type="number" readonly value="<?= PRIXBOISSON ?>" class="form-control">
             </div>
             <div class="form-group mb-3">
-              <label class="form-label">PRIX DESSERT</label>
-              <input name="prixDessert" type="number" class="form-control">
+              <label class="form-label">PRIX DESSERT (FCFA)</label>
+              <input name="prixDessert" type="number" readonly value="<?= PRIXDESSERT ?>" class="form-control">
             </div>
           </div>
           <div class="col-4 offset-1">
             <div class="form-group mb-3">
               <label class="form-label">NOMBRE PLAT</label>
-              <input name="nombrePlat" type="number" class="form-control">
+              <input name="nombrePlat" id="nbplat" type="number" class="form-control">
             </div>
             <div class="form-group mb-3">
               <label class="form-label">NOMBRE BOISSON</label>
@@ -63,10 +74,27 @@
       </div>
       <div class="card-footer">
         <button type="reset" class="btn btn-outline-danger col-4 offset-1">Annuler</button>
-        <button type="submit" name="btnSubmit" class="btn btn-outline-success col-4 offset-1">Enregistrer</button>
+        <button id="btnSubmit" type="submit" name="btnSubmit"
+          class="btn btn-outline-success col-4 offset-1">Enregistrer</button>
       </div>
     </div>
   </form>
+
+  <script>
+  const nbPlat = document.getElementById('nbplat');
+  const btn = document.getElementById('btnSubmit');
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (nbplat.value != "") {
+      alert("C'est bon")
+      document.getElementById('form').submit();
+
+    } else {
+      alert("Nekkal nitt")
+    }
+  })
+  </script>
 </body>
 
 </html>
